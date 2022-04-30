@@ -2,10 +2,20 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Layout from '@/components/Layout'
 import Grid from '@/components/Grid'
+import { PrismaClient } from '@prisma/client'
 
-import items from 'data.json'
+const prisma = new PrismaClient()
 
-const Home: NextPage = () => {
+export async function getServerSideProps() {
+  const items = await prisma.item.findMany()
+  return {
+    props: {
+      items: JSON.parse(JSON.stringify(items)),
+    },
+  }
+}
+
+const Home: NextPage = ({ items = [] }) => {
   return (
     <div>
       <Head>

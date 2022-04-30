@@ -14,7 +14,7 @@ const Card = ({
   <Link href={`/items/${id}`}>
     <a className='block w-full'>
       <div className='relative'>
-        <div className='bg-gray-200 rounded-lg shadow overflow-hidden aspect-w-16 aspect-h-9'>
+        <div className='bg-gray-200 rounded-lg shadow overflow-hidden aspect-1'>
           {image ? (
             <Image
               src={image}
