@@ -38,5 +38,17 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 Setup new prisma project
 `npx prisma init`
 
-Create migrations from the prisma schema
+Create migrations from your prisma schema
 `prisma migrate`
+
+Generate the prisma client (Must be done after making changes to your prisma schema)
+`npx prisma generate`
+
+Sync schema with database (For prototyping, potential loss of data, no migration history created)
+`npx prisma db push`
+
+Sync schema with database (Keeps track of changes, maintain existing data)
+`npx prisma migrate dev`
+
+Access the Prisma Studio database client
+`npx prisma studio`
