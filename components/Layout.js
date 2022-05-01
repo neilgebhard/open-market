@@ -53,7 +53,7 @@ const Layout = ({ children = null }) => {
   return (
     <>
       <div className='min-h-screen flex flex-col'>
-        <header className='h-16 w-full shadow-md'>
+        <header className='h-16 w-full'>
           <div className='h-full container mx-auto'>
             <div className='h-full px-4 flex justify-between items-center space-x-4'>
               <Link href='/'>

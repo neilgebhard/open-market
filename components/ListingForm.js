@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast'
 import { Formik, Form } from 'formik'
 import Input from '@/components/Input'
 import ImageUpload from '@/components/ImageUpload'
+import axios from 'axios'
 
 const ListingSchema = Yup.object().shape({
   name: Yup.string().trim().required(),
@@ -25,7 +26,19 @@ const ListingForm = ({
   const [imageUrl, setImageUrl] = useState(initialValues?.image ?? '')
 
   const upload = async (image) => {
-    // TODO: Upload image to remote storage
+    if (!image) return
+
+    try {
+      setDisabled(true)
+      const { data } = axios.post('/api/image-upload', { image })
+      setImageUrl(data?.url)
+      toast.success('Successfully uploaded', { id: toastId })
+    } catch (e) {
+      toast.error('Unable to upload', { id: toastId })
+      setImageUrl('')
+    } finally {
+      setDisabled(false)
+    }
   }
 
   const handleOnSubmit = async (values = null) => {
