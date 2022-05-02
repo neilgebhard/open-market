@@ -1,11 +1,22 @@
-import PropTypes from 'prop-types'
 import Card from '@/components/Card'
 import { ExclamationIcon } from '@heroicons/react/outline'
 
-const Grid = ({ items = [] }) => {
+type Item = {
+  id: string
+  image: string
+  name: string
+  price: number
+  favorite: boolean
+  onClickFavorite: () => void
+}
+
+type GridProps = {
+  items: Item[]
+}
+const Grid = ({ items = [] }: GridProps) => {
   const isEmpty = items.length === 0
 
-  const toggleFavorite = async (id) => {
+  const toggleFavorite = async (id: string) => {
     // TODO: Add/remove item from the authenticated user's favorites
   }
 
@@ -21,10 +32,6 @@ const Grid = ({ items = [] }) => {
       ))}
     </div>
   )
-}
-
-Grid.propTypes = {
-  items: PropTypes.array,
 }
 
 export default Grid

@@ -1,23 +1,31 @@
 import { useState, useRef } from 'react'
-import PropTypes from 'prop-types'
 import Image from 'next/image'
 import toast from 'react-hot-toast'
 import classNames from 'classnames'
 import { ArrowUpIcon } from '@heroicons/react/outline'
+
+type ImageUploadProps = {
+  initialImage?: { src: string; alt: string } | null
+  onChangePicture: (image: string) => void
+  label: string
+  objectFit: string
+  accept: string
+  sizeLimit: number
+}
 
 const ImageUpload = ({
   label = 'Image',
   initialImage = null,
   objectFit = 'cover',
   accept = '.png, .jpg, .jpeg, .gif',
-  sizeLimit = 10 * 1024 * 1024, // 10MB
+  sizeLimit = 1024 * 1024, // 1MB
   onChangePicture = () => null,
-}) => {
+}: ImageUploadProps) => {
   const pictureRef = useRef()
 
   const [image, setImage] = useState(initialImage)
   const [updatingPicture, setUpdatingPicture] = useState(false)
-  const [pictureError, setPictureError] = useState(null)
+  const [pictureError, setPictureError] = useState('')
 
   const handleOnChangePicture = (e) => {
     const file = e.target.files[0]
@@ -108,18 +116,6 @@ const ImageUpload = ({
       ) : null}
     </div>
   )
-}
-
-ImageUpload.propTypes = {
-  label: PropTypes.string,
-  initialImage: PropTypes.shape({
-    src: PropTypes.string,
-    alt: PropTypes.string,
-  }),
-  objectFit: PropTypes.string,
-  accept: PropTypes.string,
-  sizeLimit: PropTypes.number,
-  onChangePicture: PropTypes.func,
 }
 
 export default ImageUpload

@@ -25,11 +25,13 @@ const ListingForm = ({
   const [disabled, setDisabled] = useState(false)
   const [imageUrl, setImageUrl] = useState(initialValues?.image ?? '')
 
-  const upload = async (image) => {
+  const upload = async (image: string) => {
     if (!image) return
 
+    let toastId
     try {
       setDisabled(true)
+      toastId = toast.loading('Uploading...')
       const { data } = await axios.post('/api/image-upload', { image })
       setImageUrl(data?.url)
       toast.success('Successfully uploaded', { id: toastId })

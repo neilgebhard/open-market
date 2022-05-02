@@ -1,9 +1,6 @@
-import { Fragment, useState } from 'react'
-import { useRouter } from 'next/router'
-import Head from 'next/head'
+import { Fragment, useState, ReactNode } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import PropTypes from 'prop-types'
 import AuthModal from './AuthModal'
 import { Menu, Transition } from '@headlessui/react'
 import {
@@ -40,7 +37,11 @@ const menuItems = [
   },
 ]
 
-const Layout = ({ children = null }) => {
+type LayoutProps = {
+  children: ReactNode
+}
+
+const Layout = ({ children }: LayoutProps) => {
   const { data: session, status } = useSession()
   const user = session?.user
   const isLoadingUser = status === 'loading'
@@ -165,19 +166,13 @@ const Layout = ({ children = null }) => {
         </header>
 
         <main className='flex-grow container mx-auto'>
-          <div className='px-4 py-12'>
-            {typeof children === 'function' ? children(openModal) : children}
-          </div>
+          <div className='px-4 py-12'>{children}</div>
         </main>
 
         <AuthModal show={showModal} onClose={closeModal} />
       </div>
     </>
   )
-}
-
-Layout.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
 }
 
 export default Layout

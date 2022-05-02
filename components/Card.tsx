@@ -1,7 +1,15 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import PropTypes from 'prop-types'
 import { HeartIcon } from '@heroicons/react/solid'
+
+type CardProps = {
+  id: string
+  image: string
+  name: string
+  price: number
+  favorite: boolean
+  onClickFavorite: (id: string) => void
+}
 
 const Card = ({
   id = '',
@@ -10,7 +18,7 @@ const Card = ({
   price = 0,
   favorite = false,
   onClickFavorite = () => null,
-}) => (
+}: CardProps) => (
   <Link href={`/items/${id}`}>
     <a className='block w-full'>
       <div className='relative'>
@@ -29,9 +37,7 @@ const Card = ({
           type='button'
           onClick={(e) => {
             e.preventDefault()
-            if (typeof onClickFavorite === 'function') {
-              onClickFavorite(id)
-            }
+            onClickFavorite(id)
           }}
           className='absolute top-2 right-2'
         >
@@ -54,15 +60,5 @@ const Card = ({
     </a>
   </Link>
 )
-
-Card.propTypes = {
-  id: PropTypes.string.isRequired,
-  image: PropTypes.string,
-  name: PropTypes.string,
-  description: PropTypes.string,
-  price: PropTypes.number,
-  favorite: PropTypes.bool,
-  onClickFavorite: PropTypes.func,
-}
 
 export default Card

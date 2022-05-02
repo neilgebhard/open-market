@@ -3,7 +3,18 @@ import classNames from 'classnames'
 import { useField } from 'formik'
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
 
-const Input = ({ type = '', label = '', className = '', ...props }) => {
+type InputProps = {
+  type: string
+  label: string
+  className: string
+}
+
+const Input = ({
+  type = '',
+  label = '',
+  className = '',
+  ...props
+}: InputProps) => {
   const [field, meta] = useField(props)
   const error = meta?.touched && meta?.error
 
@@ -50,18 +61,10 @@ const Input = ({ type = '', label = '', className = '', ...props }) => {
       </div>
 
       {error ? (
-        <p name='email' className='text-red-600 text-sm first-letter:uppercase'>
-          {error}
-        </p>
+        <p className='text-red-600 text-sm first-letter:uppercase'>{error}</p>
       ) : null}
     </div>
   )
-}
-
-Input.propTypes = {
-  type: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  className: PropTypes.string,
 }
 
 export default Input

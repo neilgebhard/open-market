@@ -21,7 +21,6 @@ export default NextAuth({
           user: process.env.EMAIL_SERVER_USER,
           pass: process.env.EMAIL_SERVER_PASSWORD,
         },
-        logger: true,
       },
       maxAge: 10 * 60,
     }),

@@ -1,7 +1,6 @@
 import { Fragment, useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import PropTypes from 'prop-types'
 import * as Yup from 'yup'
 import { toast } from 'react-hot-toast'
 import { Formik, Form } from 'formik'
@@ -9,6 +8,11 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ThumbUpIcon, MailOpenIcon, XIcon } from '@heroicons/react/outline'
 import Input from './Input'
 import { signIn } from 'next-auth/react'
+
+type AuthModalProps = {
+  show: boolean
+  onClose: () => void
+}
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string()
@@ -63,26 +67,25 @@ const Confirm = ({ show = false, email = '' }) => (
   </Transition>
 )
 
-const AuthModal = ({ show = false, onClose = () => null }) => {
+const AuthModal = ({ show = false, onClose = () => null }: AuthModalProps) => {
   const [disabled, setDisabled] = useState(false)
   const [showConfirm, setConfirm] = useState(false)
   const [showSignIn, setShowSignIn] = useState(false)
 
-  const signInWithEmail = async ({ email }) => {
+  const signInWithEmail = async ({ email }: { email: string }) => {
     let toastId
     try {
       toastId = toast.loading('Loading...')
       setDisabled(true)
-      const { error } = await signIn('email', {
+      await signIn('email', {
         redirect: false,
         callbackUrl: window.location.href,
         email,
       })
-      if (error) throw new Error(error)
       setConfirm(true)
       toast.dismiss(toastId)
     } catch (e) {
-      toast.error('Unable to sign in', { id: toastid })
+      toast.error('Unable to sign in', { id: toastId })
     } finally {
       setDisabled(false)
     }
@@ -285,11 +288,6 @@ const AuthModal = ({ show = false, onClose = () => null }) => {
       </Dialog>
     </Transition>
   )
-}
-
-AuthModal.propTypes = {
-  show: PropTypes.bool,
-  onClose: PropTypes.func,
 }
 
 export default AuthModal
