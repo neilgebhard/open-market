@@ -30,7 +30,7 @@ const ListingForm = ({
 
     try {
       setDisabled(true)
-      const { data } = axios.post('/api/image-upload', { image })
+      const { data } = await axios.post('/api/image-upload', { image })
       setImageUrl(data?.url)
       toast.success('Successfully uploaded', { id: toastId })
     } catch (e) {
