@@ -58,7 +58,7 @@ const ListedItem = (item = null) => {
           </h1>
         </div>
 
-        <div className='mt-6 relative aspect-1 bg-gray-200 rounded-lg shadow-md overflow-hidden'>
+        <div className='mt-6 relative aspect-1 bg-gray-200 rounded-lg shadow-md overflow-hidden max-w-sm'>
           {item?.image ? (
             <Image
               src={item.image}

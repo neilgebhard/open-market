@@ -119,7 +119,7 @@ const ListingForm = ({
               <button
                 type='submit'
                 disabled={disabled || !isValid}
-                className='bg-indigo-600 text-white py-2 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-indigo-600 focus:ring-opacity-50 hover:bg-indigo-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-indigo-600'
+                className='bg-amber-600 text-white py-2 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-amber-600 focus:ring-opacity-50 hover:bg-amber-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-amber-600'
               >
                 {isSubmitting ? 'Submitting...' : buttonText}
               </button>

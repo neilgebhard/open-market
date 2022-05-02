@@ -59,9 +59,9 @@ const Layout = ({ children }: LayoutProps) => {
             <div className='h-full px-4 flex justify-between items-center space-x-4'>
               <Link href='/'>
                 <a className='flex items-center space-x-1'>
-                  <ThumbUpIcon className='shrink-0 w-8 h-8 text-indigo-500' />
+                  <ThumbUpIcon className='shrink-0 w-8 h-8 text-amber-500' />
                   <span className='text-xl font-semibold tracking-wide'>
-                    Open<span className='text-indigo-600'>Market</span>
+                    Open<span className='text-amber-600'>Market</span>
                   </span>
                 </a>
               </Link>
@@ -155,7 +155,7 @@ const Layout = ({ children }: LayoutProps) => {
                   <button
                     type='button'
                     onClick={openModal}
-                    className='ml-4 px-4 py-1 rounded-md bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 text-white transition'
+                    className='ml-4 px-4 py-1 rounded-md bg-amber-600 hover:bg-amber-500 focus:outline-none focus:ring-4 focus:ring-amber-500 focus:ring-opacity-50 text-white transition'
                   >
                     Log in
                   </button>

@@ -2,7 +2,7 @@ import { Fragment, useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import * as Yup from 'yup'
-import { toast } from 'react-hot-toast'
+import { toast, useToasterStore } from 'react-hot-toast'
 import { Formik, Form } from 'formik'
 import { Dialog, Transition } from '@headlessui/react'
 import { ThumbUpIcon, MailOpenIcon, XIcon } from '@heroicons/react/outline'
@@ -49,7 +49,7 @@ const Confirm = ({ show = false, email = '' }) => (
           <div className='overflow-hidden transition-all transform'>
             <h3 className='text-center text-lg font-medium leading-6'>
               <div className='flex flex-col justify-center items-center space-y-4'>
-                <MailOpenIcon className='w-12 h-12 shrink-0 text-indigo-500' />
+                <MailOpenIcon className='w-12 h-12 shrink-0 text-amber-500' />
               </div>
               <p className='text-2xl font-semibold mt-2'>Confirm your email</p>
             </h3>
@@ -77,11 +77,12 @@ const AuthModal = ({ show = false, onClose = () => null }: AuthModalProps) => {
     try {
       toastId = toast.loading('Loading...')
       setDisabled(true)
-      await signIn('email', {
+      const { error } = await signIn('email', {
         redirect: false,
         callbackUrl: window.location.href,
         email,
       })
+      if (error) throw new Error(error)
       setConfirm(true)
       toast.dismiss(toastId)
     } catch (e) {
@@ -92,7 +93,11 @@ const AuthModal = ({ show = false, onClose = () => null }: AuthModalProps) => {
   }
 
   const signInWithGoogle = () => {
-    // TODO: Perform Google auth
+    toast.loading('Redirecting...')
+    setDisabled(true)
+    signIn('google', {
+      callbackUrl: window.location.href,
+    })
   }
 
   const closeModal = () => {
@@ -171,9 +176,9 @@ const AuthModal = ({ show = false, onClose = () => null }: AuthModalProps) => {
                   <div className='flex justify-center'>
                     <Link href='/'>
                       <a className='flex items-center space-x-1'>
-                        <ThumbUpIcon className='shrink-0 w-8 h-8 text-indigo-500' />
+                        <ThumbUpIcon className='shrink-0 w-8 h-8 text-amber-500' />
                         <span className='text-xl font-semibold tracking-wide'>
-                          Open<span className='text-indigo-500'>Market</span>
+                          Open<span className='text-amber-500'>Market</span>
                         </span>
                       </a>
                     </Link>
@@ -221,7 +226,7 @@ const AuthModal = ({ show = false, onClose = () => null }: AuthModalProps) => {
                           <Input
                             name='email'
                             type='email'
-                            placeholder='elonmusk@gmail.com'
+                            placeholder='example@mail.com'
                             disabled={disabled}
                             spellCheck={false}
                           />
@@ -229,7 +234,7 @@ const AuthModal = ({ show = false, onClose = () => null }: AuthModalProps) => {
                           <button
                             type='submit'
                             disabled={disabled || !isValid}
-                            className='mt-6 w-full bg-indigo-600 text-white py-2 px-8 rounded-md focus:outline-none focus:ring-4 focus:ring-indigo-600 focus:ring-opacity-50 hover:bg-indigo-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-indigo-600'
+                            className='mt-6 w-full bg-amber-600 text-white py-2 px-8 rounded-md focus:outline-none focus:ring-4 focus:ring-amber-600 focus:ring-opacity-50 hover:bg-amber-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-amber-600'
                           >
                             {isSubmitting
                               ? 'Loading...'
@@ -247,7 +252,7 @@ const AuthModal = ({ show = false, onClose = () => null }: AuthModalProps) => {
                                     setShowSignIn(false)
                                     resetForm()
                                   }}
-                                  className='underline underline-offset-1 font-semibold text-indigo-500 hover:text-indigo-600 disabled:hover:text-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed'
+                                  className='underline underline-offset-1 font-semibold text-amber-500 hover:text-amber-600 disabled:hover:text-amber-500 disabled:opacity-50 disabled:cursor-not-allowed'
                                 >
                                   Sign up
                                 </button>
@@ -263,7 +268,7 @@ const AuthModal = ({ show = false, onClose = () => null }: AuthModalProps) => {
                                     setShowSignIn(true)
                                     resetForm()
                                   }}
-                                  className='underline underline-offset-1 font-semibold text-indigo-500 hover:text-indigo-600 disabled:hover:text-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed'
+                                  className='underline underline-offset-1 font-semibold text-amber-500 hover:text-amber-600 disabled:hover:text-amber-500 disabled:opacity-50 disabled:cursor-not-allowed'
                                 >
                                   Log in
                                 </button>
