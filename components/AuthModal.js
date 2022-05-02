@@ -8,6 +8,7 @@ import { Formik, Form } from 'formik'
 import { Dialog, Transition } from '@headlessui/react'
 import { ThumbUpIcon, MailOpenIcon, XIcon } from '@heroicons/react/outline'
 import Input from './Input'
+import { signIn } from 'next-auth/react'
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string()
@@ -68,7 +69,23 @@ const AuthModal = ({ show = false, onClose = () => null }) => {
   const [showSignIn, setShowSignIn] = useState(false)
 
   const signInWithEmail = async ({ email }) => {
-    // TODO: Perform email auth
+    let toastId
+    try {
+      toastId = toast.loading('Loading...')
+      setDisabled(true)
+      const { error } = await signIn('email', {
+        redirect: false,
+        callbackUrl: window.location.href,
+        email,
+      })
+      if (error) throw new Error(error)
+      setConfirm(true)
+      toast.dismiss(toastId)
+    } catch (e) {
+      toast.error('Unable to sign in', { id: toastid })
+    } finally {
+      setDisabled(false)
+    }
   }
 
   const signInWithGoogle = () => {
@@ -84,7 +101,7 @@ const AuthModal = ({ show = false, onClose = () => null }) => {
   // Reset modal
   useEffect(() => {
     if (!show) {
-      // Wait for 200ms for aniamtion to finish
+      // Wait for 200ms for animation to finish
       setTimeout(() => {
         setDisabled(false)
         setConfirm(false)
