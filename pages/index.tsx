@@ -2,9 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Layout from '@/components/Layout'
 import Grid from '@/components/Grid'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/prisma'
 
 export async function getServerSideProps() {
   const items = await prisma.item.findMany()

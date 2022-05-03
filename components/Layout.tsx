@@ -13,6 +13,7 @@ import {
 } from '@heroicons/react/outline'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { useSession, signOut } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 const menuItems = [
   {
@@ -45,6 +46,7 @@ const Layout = ({ children }: LayoutProps) => {
   const { data: session, status } = useSession()
   const user = session?.user
   const isLoadingUser = status === 'loading'
+  const router = useRouter()
 
   const [showModal, setShowModal] = useState(false)
 
@@ -66,11 +68,14 @@ const Layout = ({ children }: LayoutProps) => {
                 </a>
               </Link>
               <div className='flex items-center space-x-4'>
-                <Link href='/create'>
-                  <a className='hidden sm:block hover:bg-gray-200 transition px-3 py-1 rounded-md'>
-                    List your item
-                  </a>
-                </Link>
+                <button
+                  className='hidden sm:block hover:bg-gray-200 transition px-3 py-1 rounded-md'
+                  onClick={() => {
+                    session?.user ? router.push('/create') : openModal()
+                  }}
+                >
+                  List your item
+                </button>
                 {isLoadingUser ? (
                   <div className='h-8 w-[75px] bg-gray-200 animate-pulse rounded-md' />
                 ) : user ? (

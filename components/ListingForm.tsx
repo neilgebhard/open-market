@@ -23,7 +23,7 @@ const ListingForm = ({
   const router = useRouter()
 
   const [disabled, setDisabled] = useState(false)
-  const [imageUrl, setImageUrl] = useState(initialValues?.image ?? '')
+  const [imageUrl, setImageUrl] = useState(initialValues?.image)
 
   const upload = async (image: string) => {
     if (!image) return

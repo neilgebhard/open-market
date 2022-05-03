@@ -53,9 +53,7 @@ const ListedItem = (item = null) => {
     <Layout>
       <div className='max-w-screen-lg mx-auto'>
         <div className='flex flex-col sm:flex-row sm:justify-between sm:space-x-4 space-y-4'>
-          <h1 className='text-2xl font-semibold truncate'>
-            {item?.name ?? ''}
-          </h1>
+          <h1 className='text-2xl font-semibold truncate'>{item?.name}</h1>
         </div>
 
         <div className='mt-6 relative aspect-1 bg-gray-200 rounded-lg shadow-md overflow-hidden max-w-sm'>
@@ -69,7 +67,7 @@ const ListedItem = (item = null) => {
           ) : null}
         </div>
 
-        <p className='mt-8 text-lg'>{item?.description ?? ''}</p>
+        <p className='mt-8 text-lg'>{item?.description}</p>
       </div>
     </Layout>
   )

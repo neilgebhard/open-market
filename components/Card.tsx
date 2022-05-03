@@ -49,7 +49,7 @@ const Card = ({
         </button>
       </div>
       <div className='mt-2 w-full text-gray-700 font-semibold leading-tight'>
-        {name ?? ''}
+        {name}
       </div>
       <p className='mt-2'>
         {new Intl.NumberFormat('en-US', {

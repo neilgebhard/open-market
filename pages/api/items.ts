@@ -1,7 +1,5 @@
-import { PrismaClient } from '@prisma/client'
 import { getSession } from 'next-auth/react'
-
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/prisma'
 
 export default async function handler(req, res) {
   const session = await getSession({ req })
@@ -12,14 +10,14 @@ export default async function handler(req, res) {
 
   if (req.method === 'POST') {
     try {
-      const { image, name, description, price } = req.body
+      const data = req.body
 
       const user = await prisma.user.findUnique({
         where: { email: session.user.email },
       })
 
       const item = await prisma.item.create({
-        data: { image, name, description, price, ownerId: user.id },
+        data: { ...data, ownerId: user.id },
       })
 
       res.status(200).json(item)

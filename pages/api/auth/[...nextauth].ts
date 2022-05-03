@@ -2,13 +2,11 @@ import NextAuth from 'next-auth'
 import EmailProvider from 'next-auth/providers/email'
 import GoogleProvider from 'next-auth/providers/google'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import { PrismaClient } from '@prisma/client'
 import Handlebars from 'handlebars'
 import nodemailer from 'nodemailer'
 import { readFileSync } from 'fs'
 import path from 'path'
-
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/prisma'
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_SERVER_HOST,

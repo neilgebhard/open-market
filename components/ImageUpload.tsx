@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import Image from 'next/image'
 import toast from 'react-hot-toast'
 import classNames from 'classnames'
@@ -7,21 +7,15 @@ import { ArrowUpIcon } from '@heroicons/react/outline'
 type ImageUploadProps = {
   initialImage?: { src: string; alt: string } | null
   onChangePicture: (image: string) => void
-  label: string
-  objectFit: string
-  accept: string
   sizeLimit: number
 }
 
 const ImageUpload = ({
-  label = 'Image',
   initialImage = null,
-  objectFit = 'cover',
-  accept = '.png, .jpg, .jpeg, .gif',
   sizeLimit = 1024 * 1024, // 1MB
   onChangePicture = () => null,
 }: ImageUploadProps) => {
-  const pictureRef = useRef()
+  const pictureRef = useRef<HTMLInputElement>()
 
   const [image, setImage] = useState(initialImage)
   const [updatingPicture, setUpdatingPicture] = useState(false)
@@ -60,14 +54,12 @@ const ImageUpload = ({
   }
 
   const handleOnClickPicture = () => {
-    if (pictureRef.current) {
-      pictureRef.current.click()
-    }
+    pictureRef.current.click()
   }
 
   return (
     <div className='flex flex-col space-y-2'>
-      <label className='text-gray-600'>{label}</label>
+      <label className='text-gray-600'>Image</label>
 
       <button
         disabled={updatingPicture}
@@ -82,9 +74,9 @@ const ImageUpload = ({
         {image?.src ? (
           <Image
             src={image.src}
-            alt={image?.alt ?? ''}
+            alt={image?.alt}
             layout='fill'
-            objectFit={objectFit}
+            objectFit='cover'
           />
         ) : null}
 
@@ -102,7 +94,7 @@ const ImageUpload = ({
           <input
             ref={pictureRef}
             type='file'
-            accept={accept}
+            accept='.png, .jpg, .jpeg, .gif'
             onChange={handleOnChangePicture}
             className='hidden'
           />

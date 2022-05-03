@@ -55,7 +55,7 @@ const Confirm = ({ show = false, email = '' }) => (
             </h3>
 
             <p className='text-lg text-center mt-4'>
-              We emailed a magic link to <strong>{email ?? ''}</strong>.
+              We emailed a magic link to <strong>{email}</strong>.
               <br />
               Check your inbox and click the link in the email to login or sign
               up.
@@ -160,7 +160,7 @@ const AuthModal = ({ show = false, onClose = () => null }: AuthModalProps) => {
             leaveFrom='opacity-100 scale-100'
             leaveTo='opacity-0 scale-95'
           >
-            <div className='inline-block w-full my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl sm:rounded-md max-w-md relative'>
+            <div className='inline-block w-full my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl sm:rounded-md max-w-md relative rounded-lg'>
               {/* Close icon */}
               <button
                 onClick={closeModal}
@@ -275,10 +275,7 @@ const AuthModal = ({ show = false, onClose = () => null }: AuthModalProps) => {
                             )}
                           </p>
 
-                          <Confirm
-                            show={showConfirm}
-                            email={values?.email ?? ''}
-                          />
+                          <Confirm show={showConfirm} email={values?.email} />
                         </Form>
                       )}
                     </Formik>
