@@ -24,7 +24,7 @@ const Home: NextPage = ({ items = [] }) => {
           name='description'
           content='An open marketplace for selling your stuff'
         />
-        <link rel='icon' href='/favicon.ico' />
+        <link rel='icon' href='/favicons/favicon.ico' />
       </Head>
 
       <main>
