@@ -38,9 +38,7 @@ const ImageUpload = ({
       async function () {
         try {
           setImage({ src: reader.result, alt: fileName })
-          if (typeof onChangePicture === 'function') {
-            await onChangePicture(reader.result)
-          }
+          await onChangePicture(reader.result)
         } catch (err) {
           toast.error('Unable to update image')
         } finally {

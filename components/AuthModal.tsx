@@ -101,9 +101,7 @@ const AuthModal = ({ show = false, onClose = () => null }: AuthModalProps) => {
   }
 
   const closeModal = () => {
-    if (typeof onClose === 'function') {
-      onClose()
-    }
+    onClose()
   }
 
   // Reset modal

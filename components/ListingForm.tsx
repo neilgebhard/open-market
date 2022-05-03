@@ -48,12 +48,11 @@ const ListingForm = ({
     try {
       setDisabled(true)
       toastId = toast.loading('Submitting...')
-      // Submit data
-      if (typeof onSubmit === 'function') {
-        await onSubmit({ ...values, image: imageUrl })
-      }
+
+      await onSubmit({ ...values, image: imageUrl })
+
       toast.success('Successfully submitted', { id: toastId })
-      // Redirect user
+
       if (redirectPath) {
         router.push(redirectPath)
       }

@@ -52,3 +52,6 @@ Sync schema with database (Keeps track of changes, maintain existing data)
 
 Access the Prisma Studio database client
 `npx prisma studio`
+
+Create a migration file without applying it:
+`npx prisma migrate dev --create-only`

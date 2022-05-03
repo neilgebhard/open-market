@@ -47,6 +47,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  items         Item[]
 }
 
 model VerificationToken {
@@ -65,4 +66,6 @@ model Item {
   price       Float
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  owner       User @relation(fields: [ownerId], references: [id])
+  ownerId     String
 }
