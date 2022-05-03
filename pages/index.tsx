@@ -4,8 +4,9 @@ import Layout from '@/components/Layout'
 import Grid from '@/components/Grid'
 import { prisma } from '@/lib/prisma'
 import { Item } from '@prisma/client'
+import { GetServerSideProps } from 'next'
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   const items: Item[] = await prisma.item.findMany()
   return {
     props: {

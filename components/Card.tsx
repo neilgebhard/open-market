@@ -22,14 +22,14 @@ const Card = ({
   <Link href={`/items/${id}`}>
     <a className='block w-full'>
       <div className='relative'>
-        <div className='bg-gray-200 rounded-lg shadow overflow-hidden aspect-1'>
+        <div className='bg-gray-200 rounded-lg shadow aspect-1'>
           {image ? (
             <Image
               src={image}
               alt={name}
               layout='fill'
               objectFit='cover'
-              className='hover:opacity-80 transition'
+              className='hover:opacity-80 transition rounded-lg'
             />
           ) : null}
         </div>
@@ -51,7 +51,7 @@ const Card = ({
       <div className='mt-2 w-full text-gray-700 font-semibold leading-tight'>
         {name}
       </div>
-      <p className='mt-2'>
+      <p>
         {new Intl.NumberFormat('en-US', {
           style: 'currency',
           currency: 'USD',
