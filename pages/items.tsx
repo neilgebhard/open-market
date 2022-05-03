@@ -2,8 +2,10 @@ import Grid from '@/components/Grid'
 import Layout from '@/components/Layout'
 import { getSession } from 'next-auth/react'
 import { prisma } from '@/lib/prisma'
+import { Item } from '@prisma/client'
+import { GetServerSideProps } from 'next'
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context)
 
   if (!session) {
@@ -15,7 +17,7 @@ export const getServerSideProps = async (context) => {
     }
   }
 
-  const items = await prisma.item.findMany({
+  const items: Item[] = await prisma.item.findMany({
     where: {
       owner: { email: session.user.email },
     },

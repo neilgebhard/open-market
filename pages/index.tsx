@@ -3,9 +3,10 @@ import Head from 'next/head'
 import Layout from '@/components/Layout'
 import Grid from '@/components/Grid'
 import { prisma } from '@/lib/prisma'
+import { Item } from '@prisma/client'
 
 export async function getServerSideProps() {
-  const items = await prisma.item.findMany()
+  const items: Item[] = await prisma.item.findMany()
   return {
     props: {
       items: JSON.parse(JSON.stringify(items)),

@@ -2,8 +2,9 @@ import Layout from '@/components/Layout'
 import ListingForm from '@/components/ListingForm'
 import axios from 'axios'
 import { getSession } from 'next-auth/react'
+import { GetServerSideProps } from 'next'
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context)
 
   if (!session) {

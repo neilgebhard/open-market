@@ -2,9 +2,11 @@ import Image from 'next/image'
 import Layout from '@/components/Layout'
 import { prisma } from '@/lib/prisma'
 import { useRouter } from 'next/router'
+import { Item } from '@prisma/client'
+import { GetStaticPaths, GetStaticProps } from 'next'
 
-export async function getStaticPaths() {
-  const items = await prisma.item.findMany({
+export const getStaticPaths: GetStaticPaths = async () => {
+  const items: Item[] = await prisma.item.findMany({
     select: { id: true },
   })
 
@@ -22,7 +24,7 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const item = await prisma.item.findUnique({
     where: { id: params.id },
   })
