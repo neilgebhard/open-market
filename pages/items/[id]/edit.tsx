@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import Layout from '@/components/Layout'
 import ListingForm from '@/components/ListingForm'
-import { prisma } from '@/lib/prisma'
+import prisma from '@/lib/prisma'
 import { getSession } from 'next-auth/react'
 import { Item } from '@prisma/client'
 import axios from 'axios'
@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-const Edit = (item = null) => {
+const Edit = (item: Item) => {
   const handleSubmit = (data) => axios.patch(`/api/items/${item.id}`, data)
 
   return (

@@ -6,7 +6,7 @@ import Handlebars from 'handlebars'
 import nodemailer from 'nodemailer'
 import { readFileSync } from 'fs'
 import path from 'path'
-import { prisma } from '@/lib/prisma'
+import prisma from '@/lib/prisma'
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_SERVER_HOST,

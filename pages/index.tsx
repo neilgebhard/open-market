@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Layout from '@/components/Layout'
 import Grid from '@/components/Grid'
-import { prisma } from '@/lib/prisma'
+import prisma from '@/lib/prisma'
 import { Item } from '@prisma/client'
 import { GetServerSideProps } from 'next'
 
