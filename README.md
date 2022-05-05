@@ -1,57 +1,49 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# OpenMarket
 
-First, run the development server:
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Database**: [Supabase](https://supabase.com/)
+- **ORM**: [Prisma](https://prisma.io/)
+- **Authentication**: [NextAuth.js](https://next-auth.js.org/)
+- **Deployment**: [Vercel](https://vercel.com)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components**: [Headless UI](https://headlessui.dev/)
+- **Notifications**: [react-hot-toast](https://react-hot-toast.com/)
+- **Emailing**: [nodermailer](https://nodemailer.com/about/)
+
+## Overview
+
+- `components/*` - Modular, re-usable UI components
+- `emails/*` - HTML templates for logging in and registration
+- `lib/prisma` - Singleton Prisma client
+- `pages/*` - Pre-rendered pages using Next.js routing
+- `pages/api/*` - [API routes](https://nextjs.org/docs/api-routes/introduction) for DB interactions
+- `prisma/*` - Prisma schema and migration history
+- `public/*` - Static assets including favicons
+
+## Running Locally
+
+Clone GitHub repository, install the dependencies, and run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
+$ git clone https://github.com/neilgebhard/open-market
+$ cd open-market
+$ npm i
+$ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Create a `.env` file similar to [`.env.example`](https://github.com/neilgebhard/open-market/blob/main/.env.example).
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Working with prisma
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-## Commands
-
-Setup new prisma project
-`npx prisma init`
-
-Create migrations from your prisma schema
-`prisma migrate`
-
-Generate the prisma client (Must be done after making changes to your prisma schema)
-`npx prisma generate`
-
-Sync schema with database (For prototyping, potential loss of data, no migration history created)
-`npx prisma db push`
-
-Sync schema with database (Keeps track of changes, maintain existing data)
-`npx prisma migrate dev`
-
-Access the Prisma Studio database client
-`npx prisma studio`
-
-Create a migration file without applying it:
-`npx prisma migrate dev --create-only`
+`npx prisma init` - Setup new prisma project
+`prisma migrate` - Create migrations from your prisma schema
+`npx prisma generate` - Generate the prisma client (After making changes to your prisma schema)
+`npx prisma db push` - Sync schema with database (For prototyping)
+`npx prisma migrate dev` - Sync schema with database (Create a migration to keep track of changes & data)
+`npx prisma migrate dev --create-only` - Create a migration file without applying it
+`npx prisma studio` - Access the Prisma Studio database client

@@ -9,13 +9,10 @@ type Item = {
   name: string
   price: number
   favorite: boolean
-  onClickFavorite: () => void
 }
 
 const Grid = ({ items = [] }: { items: Item[] }) => {
   const [favorites, setFavorites] = useState<string[]>([])
-
-  const isEmpty = items.length === 0
 
   const toggleFavorite = (id: string) => {
     setFavorites((prev) => {
@@ -42,6 +39,8 @@ const Grid = ({ items = [] }: { items: Item[] }) => {
 
     fetchFavorites()
   }, [])
+
+  const isEmpty = items.length === 0
 
   return isEmpty ? (
     <p className='text-amber-700 bg-amber-100 px-4 rounded-md py-2 max-w-max inline-flex items-center space-x-1'>
