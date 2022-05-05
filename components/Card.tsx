@@ -22,7 +22,7 @@ const Card = ({
   <Link href={`/items/${id}`}>
     <a className='block w-full'>
       <div className='relative'>
-        <div className='bg-gray-200 rounded-lg shadow aspect-1'>
+        <div className='relative bg-gray-200 rounded-lg shadow aspect-1'>
           {image ? (
             <Image
               src={image}

@@ -78,10 +78,21 @@ export default NextAuth({
       sendVerificationRequest,
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
+      clientId: process.env.GOOGLE_ID!,
+      clientSecret: process.env.GOOGLE_SECRET!,
     }),
   ],
+  callbacks: {
+    session: async ({ session, token }) => {
+      if (session?.user) {
+        session.user.id = token.sub
+      }
+      return session
+    },
+  },
+  session: {
+    strategy: 'jwt',
+  },
   events: { createUser: sendWelcomeEmail },
   adapter: PrismaAdapter(prisma),
 })

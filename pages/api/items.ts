@@ -16,12 +16,8 @@ export default async function handler(
     try {
       const data = req.body
 
-      const user = await prisma.user.findUnique({
-        where: { email: session.user.email },
-      })
-
       const item = await prisma.item.create({
-        data: { ...data, ownerId: user.id },
+        data: { ...data, ownerId: session.user?.id },
       })
 
       res.status(200).json(item)

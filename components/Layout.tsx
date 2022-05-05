@@ -38,11 +38,7 @@ const menuItems = [
   },
 ]
 
-type LayoutProps = {
-  children: ReactNode
-}
-
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children }: { children: ReactNode }) => {
   const { data: session, status } = useSession()
   const user = session?.user
   const isLoadingUser = status === 'loading'

@@ -1,5 +1,7 @@
 import Card from '@/components/Card'
 import { ExclamationIcon } from '@heroicons/react/outline'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 type Item = {
   id: string
@@ -10,15 +12,30 @@ type Item = {
   onClickFavorite: () => void
 }
 
-type GridProps = {
-  items: Item[]
-}
-const Grid = ({ items = [] }: GridProps) => {
+const Grid = ({ items = [] }: { items: Item[] }) => {
+  const [favorites, setFavorites] = useState([])
+
   const isEmpty = items.length === 0
 
   const toggleFavorite = async (id: string) => {
-    // TODO: Add/remove item from the authenticated user's favorites
+    const favorited = favorites.includes(id)
+
+    if (favorited) {
+      await axios.delete(`/api/items/${id}/favorite`)
+    } else {
+      await axios.put(`/api/items/${id}/favorite`)
+    }
   }
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      const { data } = await axios.get(`/api/user/favorites`)
+      console.log(favorites)
+      setFavorites(data)
+    }
+
+    fetchFavorites()
+  }, [])
 
   return isEmpty ? (
     <p className='text-amber-700 bg-amber-100 px-4 rounded-md py-2 max-w-max inline-flex items-center space-x-1'>
@@ -28,7 +45,12 @@ const Grid = ({ items = [] }: GridProps) => {
   ) : (
     <div className='grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
       {items.map((item) => (
-        <Card key={item.id} {...item} onClickFavorite={toggleFavorite} />
+        <Card
+          key={item.id}
+          {...item}
+          onClickFavorite={toggleFavorite}
+          favorite={favorites.includes(item.id)}
+        />
       ))}
     </div>
   )
