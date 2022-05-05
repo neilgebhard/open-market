@@ -138,7 +138,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                                   ) : (
                                     <button
                                       className='w-full flex items-center space-x-2 py-2 px-4 rounded-md hover:bg-gray-100'
-                                      onClick={onClick}
+                                      onClick={() => onClick!()}
                                     >
                                       <Icon className='w-5 h-5 shrink-0 text-gray-500' />
                                       <span>{label}</span>

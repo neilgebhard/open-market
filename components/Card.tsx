@@ -23,7 +23,7 @@ const Card = ({
     <a className='block w-full'>
       <div className='relative'>
         <div className='relative bg-gray-200 rounded-lg shadow aspect-1'>
-          {image ? (
+          {image && (
             <Image
               src={image}
               alt={name}
@@ -31,7 +31,7 @@ const Card = ({
               objectFit='cover'
               className='hover:opacity-80 transition rounded-lg'
             />
-          ) : null}
+          )}
         </div>
         <button
           type='button'

@@ -21,8 +21,8 @@ const ImageUpload = ({
   const [updatingPicture, setUpdatingPicture] = useState(false)
   const [pictureError, setPictureError] = useState('')
 
-  const handleOnChangePicture = (e) => {
-    const file = e.target.files[0]
+  const handleOnChangePicture = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files![0]
     const reader = new FileReader()
 
     const fileName = file?.name?.split('.')?.[0] ?? 'New file'
@@ -54,7 +54,7 @@ const ImageUpload = ({
   }
 
   const handleOnClickPicture = () => {
-    pictureRef.current.click()
+    pictureRef.current!.click()
   }
 
   return (
@@ -71,17 +71,17 @@ const ImageUpload = ({
             : 'border-2 border-dashed hover:border-gray-400 focus:border-gray-400 disabled:hover:border-gray-200'
         )}
       >
-        {image?.src ? (
+        {image?.src && (
           <Image
             src={image.src}
             alt={image?.alt}
             layout='fill'
             objectFit='cover'
           />
-        ) : null}
+        )}
 
         <div className='flex items-center justify-center'>
-          {!image?.src ? (
+          {!image?.src && (
             <div className='flex flex-col items-center space-y-2'>
               <div className='shrink-0 rounded-full p-2 bg-gray-200 group-hover:scale-110 group-focus:scale-110 transition'>
                 <ArrowUpIcon className='w-4 h-4 text-gray-500 transition' />
@@ -90,7 +90,7 @@ const ImageUpload = ({
                 {updatingPicture ? 'Uploading...' : 'Upload'}
               </span>
             </div>
-          ) : null}
+          )}
           <input
             ref={pictureRef}
             type='file'
@@ -101,9 +101,9 @@ const ImageUpload = ({
         </div>
       </button>
 
-      {pictureError ? (
+      {pictureError && (
         <span className='text-red-600 text-sm'>{pictureError}</span>
-      ) : null}
+      )}
     </div>
   )
 }

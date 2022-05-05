@@ -77,12 +77,11 @@ const AuthModal = ({ show = false, onClose = () => null }: AuthModalProps) => {
     try {
       toastId = toast.loading('Loading...')
       setDisabled(true)
-      const { error } = await signIn('email', {
+      await signIn('email', {
         redirect: false,
         callbackUrl: window.location.href,
         email,
       })
-      if (error) throw new Error(error)
       setConfirm(true)
       toast.dismiss(toastId)
     } catch (e) {
@@ -189,12 +188,12 @@ const AuthModal = ({ show = false, onClose = () => null }: AuthModalProps) => {
                     {showSignIn ? 'Welcome back!' : 'Create your account'}
                   </Dialog.Title>
 
-                  {!showSignIn ? (
+                  {!showSignIn && (
                     <Dialog.Description className='mt-2 text-gray-500 text-base text-center'>
                       Please create an account to list items you&apos;d like to
                       sell and bookmark your favorite ones.
                     </Dialog.Description>
-                  ) : null}
+                  )}
 
                   <div className='mt-10'>
                     {/* Sign with Google */}

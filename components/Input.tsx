@@ -5,8 +5,12 @@ import { ExclamationCircleIcon } from '@heroicons/react/solid'
 
 type InputProps = {
   type: string
-  label: string
-  className: string
+  label?: string
+  className?: string
+  name: string
+  placeholder: string
+  disabled: boolean
+  spellCheck: boolean
 }
 
 const Input = ({
@@ -20,11 +24,11 @@ const Input = ({
 
   return (
     <div className={classNames(className, 'flex flex-col space-y-1')}>
-      {label ? (
+      {label && (
         <label htmlFor='email' className='text-gray-600'>
           {label}
         </label>
-      ) : null}
+      )}
 
       <div className='flex-1'>
         {type === 'textarea' ? (
@@ -51,18 +55,18 @@ const Input = ({
                   : 'border-gray-300 focus:border-gray-400 focus:ring-gray-400'
               )}
             />
-            {error && type !== 'number' ? (
+            {error && type !== 'number' && (
               <span className='pr-2 absolute right-0 top-1/2 -translate-y-1/2'>
                 <ExclamationCircleIcon className='w-6 h-6 text-red-500' />
               </span>
-            ) : null}
+            )}
           </div>
         )}
       </div>
 
-      {error ? (
+      {error && (
         <p className='text-red-600 text-sm first-letter:uppercase'>{error}</p>
-      ) : null}
+      )}
     </div>
   )
 }
