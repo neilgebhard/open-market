@@ -13,25 +13,31 @@ type Item = {
 }
 
 const Grid = ({ items = [] }: { items: Item[] }) => {
-  const [favorites, setFavorites] = useState([])
+  const [favorites, setFavorites] = useState<string[]>([])
 
   const isEmpty = items.length === 0
 
-  const toggleFavorite = async (id: string) => {
-    const favorited = favorites.includes(id)
-
-    if (favorited) {
-      await axios.delete(`/api/items/${id}/favorite`)
-    } else {
-      await axios.put(`/api/items/${id}/favorite`)
-    }
+  const toggleFavorite = (id: string) => {
+    setFavorites((prev) => {
+      const isFavorited = prev.includes(id)
+      if (isFavorited) {
+        axios.delete(`/api/items/${id}/favorite`)
+        return prev.filter((favorite) => favorite !== id)
+      } else {
+        axios.put(`/api/items/${id}/favorite`)
+        return [...prev, id]
+      }
+    })
   }
 
   useEffect(() => {
     const fetchFavorites = async () => {
-      const { data } = await axios.get(`/api/user/favorites`)
-      console.log(favorites)
-      setFavorites(data)
+      try {
+        const { data } = await axios.get(`/api/user/favorites`)
+        setFavorites(data)
+      } catch (e) {
+        console.error(e)
+      }
     }
 
     fetchFavorites()
