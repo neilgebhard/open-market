@@ -1,6 +1,6 @@
 # OpenMarket
 
-A place where you can buy and sell items in an open market. List your items to be sold or browse items to buy!
+A place where you can buy and sell items in an open market. List your items for sale or browse items to buy!
 
 - **Framework**: [Next.js](https://nextjs.org/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
@@ -11,7 +11,7 @@ A place where you can buy and sell items in an open market. List your items to b
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **UI Components**: [Headless UI](https://headlessui.dev/)
 - **Notifications**: [react-hot-toast](https://react-hot-toast.com/)
-- **Emailing**: [nodermailer](https://nodemailer.com/about/)
+- **Emailing**: [nodemailer](https://nodemailer.com/about/)
 
 ## Overview
 
@@ -34,16 +34,16 @@ $ npm i
 $ npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
 Create a `.env` file similar to [`.env.example`](https://github.com/neilgebhard/open-market/blob/main/.env.example).
+
+The app will be run on [http://localhost:3000](http://localhost:3000).
 
 ## Working with prisma
 
-`npx prisma init` - Setup new prisma project
-`prisma migrate` - Create migrations from your prisma schema
-`npx prisma generate` - Generate the prisma client (After making changes to your prisma schema)
-`npx prisma db push` - Sync schema with database (For prototyping)
-`npx prisma migrate dev` - Sync schema with database (Create a migration to keep track of changes & data)
-`npx prisma migrate dev --create-only` - Create a migration file without applying it
-`npx prisma studio` - Access the Prisma Studio database client
+- `npx prisma init` - Setup new prisma project
+- `prisma migrate` - Create migrations from your prisma schema
+- `npx prisma generate` - Generate the prisma client (After making changes to your prisma schema)
+- `npx prisma db push` - Sync schema with database (For prototyping)
+- `npx prisma migrate dev` - Sync schema with database (Create a migration to keep track of changes & data)
+- `npx prisma migrate dev --create-only` - Create a migration file without applying it
+- `npx prisma studio` - Access the Prisma Studio database client
