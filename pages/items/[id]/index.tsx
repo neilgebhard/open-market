@@ -11,11 +11,11 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const items: Item[] = await prisma.item.findMany({
+  const ids: { id: string }[] = await prisma.item.findMany({
     select: { id: true },
   })
 
-  const paths = items.map((item) => {
+  const paths = ids.map((item) => {
     return {
       params: {
         id: item.id,
@@ -31,7 +31,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const item = await prisma.item.findUnique({
-    where: { id: params.id },
+    where: { id: params?.id as string },
   })
 
   if (item) {
@@ -64,7 +64,7 @@ const ListedItem = (item: Item) => {
       }
     }
     checkIfOwner()
-  }, [session?.user?.id])
+  }, [session?.user, item.id])
 
   const deleteItem = async () => {
     let toastId

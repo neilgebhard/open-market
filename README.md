@@ -12,6 +12,7 @@ A place where you can buy and sell items in an open market. List your items for 
 - **UI Components**: [Headless UI](https://headlessui.dev/)
 - **Notifications**: [react-hot-toast](https://react-hot-toast.com/)
 - **Emailing**: [nodemailer](https://nodemailer.com/about/)
+- **Form validation**: [Formik](https://formik.org/)
 
 ## Overview
 

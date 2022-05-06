@@ -10,7 +10,9 @@ type InputProps = {
   name: string
   placeholder: string
   disabled: boolean
-  spellCheck: boolean
+  spellCheck?: boolean
+  rows?: number
+  min?: string
 }
 
 const Input = ({

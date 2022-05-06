@@ -7,7 +7,7 @@ import { ArrowUpIcon } from '@heroicons/react/outline'
 type ImageUploadProps = {
   initialImage?: { src: string; alt: string } | null
   onChangePicture: (image: string) => void
-  sizeLimit: number
+  sizeLimit?: number
 }
 
 const ImageUpload = ({

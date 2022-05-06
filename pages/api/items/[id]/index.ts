@@ -4,8 +4,8 @@ import prisma from '@/lib/prisma'
 import { createClient } from '@supabase/supabase-js'
 
 const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_KEY!
 )
 
 export default async function handler(
@@ -19,19 +19,19 @@ export default async function handler(
   }
 
   const user = await prisma.user.findUnique({
-    where: { email: session.user?.email },
+    where: { email: session.user!.email! },
     select: { items: true },
   })
 
   const { id } = req.query
-  if (!user.items.find((item) => item.id === id)) {
+  if (!user?.items.find((item) => item.id === id)) {
     return res.status(401).json({ message: 'Unauthorized user.' })
   }
 
   if (req.method === 'PATCH') {
     try {
       const item = await prisma.item.update({
-        where: { id },
+        where: { id: id as string },
         data: req.body,
       })
 
@@ -48,7 +48,7 @@ export default async function handler(
   } else if (req.method === 'DELETE') {
     try {
       const item = await prisma.item.delete({
-        where: { id },
+        where: { id: id as string },
       })
       res.status(200).json(item)
     } catch (e) {

@@ -7,18 +7,18 @@ import Input from '@/components/Input'
 import ImageUpload from '@/components/ImageUpload'
 import axios from 'axios'
 
-type InitialValues = {
-  image: string
+type FormValues = {
+  image?: string
   name: string
   description: string
   price: number
 }
 
 type ListingFormProps = {
-  initialValues: InitialValues
+  initialValues: FormValues
   redirectPath: string
   buttonText: string
-  onSubmit: () => void
+  onSubmit: (values: FormValues) => void
 }
 
 const ListingSchema = Yup.object().shape({
@@ -29,9 +29,9 @@ const ListingSchema = Yup.object().shape({
 
 const ListingForm = ({
   initialValues,
-  redirectPath = '',
+  redirectPath,
   buttonText = 'Submit',
-  onSubmit = () => null,
+  onSubmit,
 }: ListingFormProps) => {
   const router = useRouter()
 
@@ -56,7 +56,7 @@ const ListingForm = ({
     }
   }
 
-  const handleOnSubmit = async (values = null) => {
+  const handleOnSubmit = async (values: FormValues) => {
     let toastId
     try {
       setDisabled(true)
@@ -86,7 +86,7 @@ const ListingForm = ({
     <div>
       <div className='mb-8 max-w-md'>
         <ImageUpload
-          initialImage={{ src: image, alt: initialFormValues.title }}
+          initialImage={{ src: image!, alt: initialFormValues.name }}
           onChangePicture={upload}
         />
       </div>
