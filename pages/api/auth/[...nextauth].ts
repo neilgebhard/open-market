@@ -46,8 +46,8 @@ const sendVerificationRequest = ({
   })
 }
 
-const sendWelcomeEmail = ({ user }) => {
-  const { email } = user
+const sendWelcomeEmail = (message: any) => {
+  const { email } = message.user
 
   const emailFile = readFileSync(path.join(emailsDir, 'welcome.html'), {
     encoding: 'utf8',
