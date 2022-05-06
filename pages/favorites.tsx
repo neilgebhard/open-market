@@ -17,11 +17,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   const user = await prisma.user.findUnique({
-    where: { email: session.user.email },
+    where: { email: session.user?.email as string },
     include: { favoriteItems: true },
   })
   return {
-    props: { items: JSON.parse(JSON.stringify(user.favoriteItems)) },
+    props: { items: JSON.parse(JSON.stringify(user?.favoriteItems)) },
   }
 }
 

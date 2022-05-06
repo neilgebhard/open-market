@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const items: Item[] = await prisma.item.findMany({
     where: {
-      owner: { email: session.user.email },
+      owner: { email: session.user?.email },
     },
     orderBy: { createdAt: 'desc' },
   })

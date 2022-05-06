@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const Create = () => {
-  const addItem = (data) => axios.post('/api/items', data)
+  const addItem = (data: any) => axios.post('/api/items', data)
 
   return (
     <Layout>

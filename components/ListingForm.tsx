@@ -15,7 +15,7 @@ type FormValues = {
 }
 
 type ListingFormProps = {
-  initialValues: FormValues
+  initialValues?: FormValues
   redirectPath: string
   buttonText: string
   onSubmit: (values: FormValues) => void

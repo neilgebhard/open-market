@@ -15,7 +15,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   }
 }
 
-const Home: NextPage = ({ items = [] }) => {
+const Home: NextPage = ({ items = [] }: any) => {
   return (
     <div>
       <Head>

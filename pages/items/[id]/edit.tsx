@@ -19,11 +19,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!session) return redirect
 
   const user = await prisma.user.findUnique({
-    where: { email: session.user?.email },
+    where: { email: session.user?.email as string },
     select: { items: true },
   })
 
-  const item = user.items.find((item) => item.id === context.params.id)
+  const item = user?.items.find((item) => item.id === context.params?.id)
 
   if (!item) return redirect
 
@@ -32,8 +32,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-const Edit = (item: Item) => {
-  const handleSubmit = (data) => axios.patch(`/api/items/${item.id}`, data)
+const Edit = (item: any) => {
+  const handleSubmit = (data: any) => axios.patch(`/api/items/${item.id}`, data)
 
   return (
     <Layout>

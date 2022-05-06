@@ -7,11 +7,11 @@ export default async function handler(
 ) {
   if (req.method === 'GET') {
     try {
-      const { owner } = await prisma.item.findUnique({
-        where: { id: req.query.id },
+      const data = await prisma.item.findUnique({
+        where: { id: req.query.id as string },
         select: { owner: true },
       })
-      return res.status(200).json(owner)
+      return res.status(200).json(data?.owner)
     } catch (e) {
       res.status(500).json({ message: 'Something went wrong.' })
     }

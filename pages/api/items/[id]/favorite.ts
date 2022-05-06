@@ -14,7 +14,7 @@ export default async function handler(
   if (req.method === 'PUT') {
     try {
       const item = await prisma.item.update({
-        where: { id: itemId },
+        where: { id: itemId as string },
         data: {
           favoritedBy: { connect: { id: session.user?.id } },
         },
@@ -29,7 +29,7 @@ export default async function handler(
   } else if (req.method === 'DELETE') {
     try {
       const item = await prisma.item.update({
-        where: { id: itemId },
+        where: { id: itemId as string },
         data: {
           favoritedBy: { disconnect: { id: session.user?.id } },
         },
