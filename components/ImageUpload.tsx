@@ -15,7 +15,7 @@ const ImageUpload = ({
   sizeLimit = 1024 * 1024, // 1MB
   onChangePicture = () => null,
 }: ImageUploadProps) => {
-  const pictureRef = useRef<HTMLInputElement>()
+  const pictureRef = useRef<HTMLInputElement>(null)
 
   const [image, setImage] = useState(initialImage)
   const [updatingPicture, setUpdatingPicture] = useState(false)
@@ -31,8 +31,8 @@ const ImageUpload = ({
       'load',
       async function () {
         try {
-          setImage({ src: reader.result, alt: fileName })
-          await onChangePicture(reader.result)
+          setImage({ src: reader.result as string, alt: fileName })
+          await onChangePicture(reader.result as string)
         } catch (err) {
           toast.error('Unable to update image')
         } finally {

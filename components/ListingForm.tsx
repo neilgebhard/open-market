@@ -1,12 +1,25 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import PropTypes from 'prop-types'
 import * as Yup from 'yup'
 import { toast } from 'react-hot-toast'
 import { Formik, Form } from 'formik'
 import Input from '@/components/Input'
 import ImageUpload from '@/components/ImageUpload'
 import axios from 'axios'
+
+type InitialValues = {
+  image: string
+  name: string
+  description: string
+  price: number
+}
+
+type ListingFormProps = {
+  initialValues: InitialValues
+  redirectPath: string
+  buttonText: string
+  onSubmit: () => void
+}
 
 const ListingSchema = Yup.object().shape({
   name: Yup.string().trim().required(),
@@ -15,11 +28,11 @@ const ListingSchema = Yup.object().shape({
 })
 
 const ListingForm = ({
-  initialValues = null,
+  initialValues,
   redirectPath = '',
   buttonText = 'Submit',
   onSubmit = () => null,
-}) => {
+}: ListingFormProps) => {
   const router = useRouter()
 
   const [disabled, setDisabled] = useState(false)
@@ -128,18 +141,6 @@ const ListingForm = ({
       </Formik>
     </div>
   )
-}
-
-ListingForm.propTypes = {
-  initialValues: PropTypes.shape({
-    image: PropTypes.string,
-    name: PropTypes.string,
-    description: PropTypes.string,
-    price: PropTypes.number,
-  }),
-  redirectPath: PropTypes.string,
-  buttonText: PropTypes.string,
-  onSubmit: PropTypes.func,
 }
 
 export default ListingForm
