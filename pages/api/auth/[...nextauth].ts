@@ -7,10 +7,11 @@ import nodemailer from 'nodemailer'
 import { readFileSync } from 'fs'
 import path from 'path'
 import prisma from '@/lib/prisma'
+import { User } from '@prisma/client'
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_SERVER_HOST,
-  port: process.env.EMAIL_SERVER_PORT,
+  port: Number(process.env.EMAIL_SERVER_PORT) || 0,
   auth: {
     user: process.env.EMAIL_SERVER_USER,
     pass: process.env.EMAIL_SERVER_PASSWORD,
@@ -56,7 +57,7 @@ const sendWelcomeEmail = ({ user }) => {
 
   transporter.sendMail({
     from: `OpenMarket ${process.env.EMAIL_FROM}`,
-    to: email,
+    to: email!,
     subject: 'Welcome to OpenMarket! 🎉',
     html: emailTemplate({
       base_url: process.env.NEXTAUTH_URL,
@@ -85,7 +86,7 @@ export default NextAuth({
   callbacks: {
     session: async ({ session, token }) => {
       if (session?.user) {
-        session.user.id = token.sub
+        session.user.id = token.sub!
       }
       return session
     },
