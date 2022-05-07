@@ -8,10 +8,9 @@ import {
   ShoppingBagIcon,
   LogoutIcon,
   PlusIcon,
-  ThumbUpIcon,
   UserIcon,
 } from '@heroicons/react/outline'
-import { ChevronDownIcon } from '@heroicons/react/solid'
+import { ChevronDownIcon, TagIcon } from '@heroicons/react/solid'
 import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
@@ -19,7 +18,7 @@ const menuItems = [
   {
     label: 'List a new item',
     icon: PlusIcon,
-    href: '/list',
+    href: '/create',
   },
   {
     label: 'My items',
@@ -38,7 +37,11 @@ const menuItems = [
   },
 ]
 
-const Layout = ({ children }: { children: ReactNode }) => {
+type Props = {
+  children: ReactNode
+}
+
+const Layout: React.FC<Props> = ({ children }) => {
   const { data: session, status } = useSession()
   const user = session?.user
   const isLoadingUser = status === 'loading'
@@ -57,7 +60,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
             <div className='h-full px-4 flex justify-between items-center space-x-4'>
               <Link href='/'>
                 <a className='flex items-center space-x-1'>
-                  <ThumbUpIcon className='shrink-0 w-8 h-8 text-amber-500' />
+                  <TagIcon className='shrink-0 w-8 h-8 text-amber-500' />
                   <span className='text-xl font-semibold tracking-wide'>
                     Open<span className='text-amber-600'>Market</span>
                   </span>

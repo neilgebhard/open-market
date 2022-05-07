@@ -8,7 +8,7 @@ export default async function handler(
   if (req.method === 'GET') {
     try {
       const data = await prisma.item.findUnique({
-        where: { id: req.query.id as string },
+        where: { id: String(req.query.id) },
         select: { owner: true },
       })
       return res.status(200).json(data?.owner)
@@ -16,7 +16,8 @@ export default async function handler(
       res.status(500).json({ message: 'Something went wrong.' })
     }
   } else {
-    res.setHeader('Allow', ['GET'])
-    res.status(405).json({ message: 'HTTP method not supported.' })
+    res
+      .status(405)
+      .json({ message: `HTTP method ${req.method} is not supported.` })
   }
 }

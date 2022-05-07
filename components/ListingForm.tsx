@@ -14,7 +14,7 @@ type FormValues = {
   price: number
 }
 
-type ListingFormProps = {
+type Props = {
   initialValues?: FormValues
   redirectPath: string
   buttonText: string
@@ -27,12 +27,12 @@ const ListingSchema = Yup.object().shape({
   price: Yup.number().positive().integer().min(1).required(),
 })
 
-const ListingForm = ({
+const ListingForm: React.FC<Props> = ({
   initialValues,
   redirectPath,
   buttonText = 'Submit',
   onSubmit,
-}: ListingFormProps) => {
+}) => {
   const router = useRouter()
 
   const [disabled, setDisabled] = useState(false)

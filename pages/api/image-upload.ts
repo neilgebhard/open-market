@@ -63,7 +63,6 @@ export default async function handler(
         .json({ message: 'Something went wrong with image upload.' })
     }
   } else {
-    res.setHeader('Allow', ['Post'])
     res
       .status(405)
       .json({ message: `HTTP method ${req.method} is not supported.` })

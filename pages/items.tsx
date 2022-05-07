@@ -17,21 +17,27 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  const items: Item[] = await prisma.item.findMany({
+  const data = await prisma.item.findMany({
     where: {
       owner: { email: session.user?.email },
     },
     orderBy: { createdAt: 'desc' },
   })
 
+  const items = JSON.parse(JSON.stringify(data))
+
   return {
     props: {
-      items: JSON.parse(JSON.stringify(items)),
+      items,
     },
   }
 }
 
-const Items = ({ items = [] }) => {
+type Props = {
+  items: Item[]
+}
+
+const Items: React.FC<Props> = ({ items = [] }) => {
   return (
     <Layout>
       <h1 className='text-xl font-medium text-gray-800'>Your items</h1>

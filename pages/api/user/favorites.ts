@@ -17,7 +17,8 @@ export default async function handler(
     })
     res.status(200).json(user?.favoriteItems?.map((f) => f.id))
   } else {
-    res.setHeader('Allow', ['GET'])
-    res.status(405).json({ message: 'HTTP method not allowed.' })
+    res
+      .status(405)
+      .json({ message: `HTTP method ${req.method} is not supported.` })
   }
 }

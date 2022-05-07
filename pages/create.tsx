@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-const Create = () => {
+const Create: React.FC = () => {
   const addItem = (data: any) => axios.post('/api/items', data)
 
   return (

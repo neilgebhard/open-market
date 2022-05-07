@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { useField } from 'formik'
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
 
-type InputProps = {
+type Props = {
   type: string
   label?: string
   className?: string
@@ -15,12 +14,12 @@ type InputProps = {
   min?: string
 }
 
-const Input = ({
+const Input: React.FC<Props> = ({
   type = '',
   label = '',
   className = '',
   ...props
-}: InputProps) => {
+}) => {
   const [field, meta] = useField(props)
   const error = meta?.touched && meta?.error
 

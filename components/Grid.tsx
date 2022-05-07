@@ -1,17 +1,14 @@
 import Card from '@/components/Card'
 import { ExclamationIcon } from '@heroicons/react/outline'
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Item } from '@prisma/client'
 
-type Item = {
-  id: string
-  image: string
-  name: string
-  price: number
-  favorite: boolean
+type Props = {
+  items: Item[]
 }
 
-const Grid = ({ items = [] }: { items: Item[] }) => {
+const Grid: React.FC<Props> = ({ items = [] }) => {
   const [favorites, setFavorites] = useState<string[]>([])
 
   const toggleFavorite = (id: string) => {

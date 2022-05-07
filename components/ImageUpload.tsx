@@ -4,17 +4,17 @@ import toast from 'react-hot-toast'
 import classNames from 'classnames'
 import { ArrowUpIcon } from '@heroicons/react/outline'
 
-type ImageUploadProps = {
+type Props = {
   initialImage?: { src: string; alt: string } | null
   onChangePicture: (image: string) => void
   sizeLimit?: number
 }
 
-const ImageUpload = ({
+const ImageUpload: React.FC<Props> = ({
   initialImage = null,
   sizeLimit = 1024 * 1024, // 1MB
   onChangePicture = () => null,
-}: ImageUploadProps) => {
+}) => {
   const pictureRef = useRef<HTMLInputElement>(null)
 
   const [image, setImage] = useState(initialImage)

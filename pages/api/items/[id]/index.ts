@@ -15,23 +15,23 @@ export default async function handler(
   const session = await getSession({ req })
 
   if (!session) {
-    return res.status(401).json({ message: 'Unauthorized' })
+    return res.status(401).json({ message: 'Unauthorized.' })
   }
 
   const user = await prisma.user.findUnique({
-    where: { email: session.user!.email! },
+    where: { email: session?.user?.email! },
     select: { items: true },
   })
 
   const { id } = req.query
   if (!user?.items.find((item) => item.id === id)) {
-    return res.status(401).json({ message: 'Unauthorized user.' })
+    return res.status(401).json({ message: 'Unauthorized.' })
   }
 
   if (req.method === 'PATCH') {
     try {
       const item = await prisma.item.update({
-        where: { id: id as string },
+        where: { id: String(id) },
         data: req.body,
       })
 
@@ -48,14 +48,15 @@ export default async function handler(
   } else if (req.method === 'DELETE') {
     try {
       const item = await prisma.item.delete({
-        where: { id: id as string },
+        where: { id: String(id) },
       })
       res.status(200).json(item)
     } catch (e) {
       res.status(500).json({ message: 'Something went wrong.' })
     }
   } else {
-    res.setHeader('Allow', ['PATCH'])
-    res.status(405).json({ message: 'HTTP method not supported.' })
+    res
+      .status(405)
+      .json({ message: `HTTP method ${req.method} is not supported.` })
   }
 }

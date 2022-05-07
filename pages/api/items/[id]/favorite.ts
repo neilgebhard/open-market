@@ -14,9 +14,9 @@ export default async function handler(
   if (req.method === 'PUT') {
     try {
       const item = await prisma.item.update({
-        where: { id: itemId as string },
+        where: { id: String(itemId) },
         data: {
-          favoritedBy: { connect: { id: session.user?.id } },
+          favoritedBy: { connect: { email: session?.user?.email! } },
         },
         include: {
           favoritedBy: true,
@@ -29,9 +29,9 @@ export default async function handler(
   } else if (req.method === 'DELETE') {
     try {
       const item = await prisma.item.update({
-        where: { id: itemId as string },
+        where: { id: String(itemId) },
         data: {
-          favoritedBy: { disconnect: { id: session.user?.id } },
+          favoritedBy: { disconnect: { email: session?.user?.email! } },
         },
         include: { favoritedBy: true },
       })
@@ -40,7 +40,8 @@ export default async function handler(
       return res.status(500).json({ message: 'Something went wrong' })
     }
   } else {
-    res.setHeader('Allow', ['PUT', 'DELETE'])
-    res.status(405).json({ message: 'HTTP method not allowed.' })
+    res
+      .status(405)
+      .json({ message: `HTTP method ${req.method} is not supported.` })
   }
 }

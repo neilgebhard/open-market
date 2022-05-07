@@ -9,7 +9,7 @@ import { ThumbUpIcon, MailOpenIcon, XIcon } from '@heroicons/react/outline'
 import Input from './Input'
 import { signIn } from 'next-auth/react'
 
-type AuthModalProps = {
+type Props = {
   show: boolean
   onClose: () => void
 }
@@ -67,7 +67,7 @@ const Confirm = ({ show = false, email = '' }) => (
   </Transition>
 )
 
-const AuthModal = ({ show = false, onClose = () => null }: AuthModalProps) => {
+const AuthModal: React.FC<Props> = ({ show = false, onClose = () => null }) => {
   const [disabled, setDisabled] = useState(false)
   const [showConfirm, setConfirm] = useState(false)
   const [showSignIn, setShowSignIn] = useState(false)

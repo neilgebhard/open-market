@@ -3,6 +3,7 @@ import Layout from '@/components/Layout'
 import Grid from '@/components/Grid'
 import prisma from '@/lib/prisma'
 import { GetServerSideProps } from 'next'
+import { Item } from '@prisma/client'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context)
@@ -16,16 +17,23 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  const user = await prisma.user.findUnique({
-    where: { email: session.user?.email as string },
+  const data = await prisma.user.findUnique({
+    where: { email: session.user?.email! },
     include: { favoriteItems: true },
   })
+
+  const { favoriteItems } = JSON.parse(JSON.stringify(data))
+
   return {
-    props: { items: JSON.parse(JSON.stringify(user?.favoriteItems)) },
+    props: { items: favoriteItems },
   }
 }
 
-const Favorites = ({ items = [] }) => {
+type Props = {
+  items: Item[]
+}
+
+const Favorites: React.FC<Props> = ({ items = [] }) => {
   return (
     <Layout>
       <h1 className='text-xl font-medium text-gray-800'>Your listings</h1>

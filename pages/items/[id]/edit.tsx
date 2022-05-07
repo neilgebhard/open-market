@@ -18,21 +18,23 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (!session) return redirect
 
-  const user = await prisma.user.findUnique({
-    where: { email: session.user?.email as string },
+  const data = await prisma.user.findUnique({
+    where: { email: session.user?.email! },
     select: { items: true },
   })
 
-  const item = user?.items.find((item) => item.id === context.params?.id)
+  const { items }: { items: Item[] } = JSON.parse(JSON.stringify(data))
+
+  const item = items.find((item) => item.id === context.params?.id)
 
   if (!item) return redirect
 
   return {
-    props: JSON.parse(JSON.stringify(item)),
+    props: item,
   }
 }
 
-const Edit = (item: any) => {
+const Edit: React.FC<Item> = (item) => {
   const handleSubmit = (data: any) => axios.patch(`/api/items/${item.id}`, data)
 
   return (

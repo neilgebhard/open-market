@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const ids: { id: string }[] = await prisma.item.findMany({
+  const ids = await prisma.item.findMany({
     select: { id: true },
   })
 

@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import React from 'react'
 import Head from 'next/head'
 import Layout from '@/components/Layout'
 import Grid from '@/components/Grid'
@@ -7,15 +8,20 @@ import { Item } from '@prisma/client'
 import { GetServerSideProps } from 'next'
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const items: Item[] = await prisma.item.findMany()
+  const data = await prisma.item.findMany()
+  const items = JSON.parse(JSON.stringify(data))
   return {
     props: {
-      items: JSON.parse(JSON.stringify(items)),
+      items,
     },
   }
 }
 
-const Home: NextPage = ({ items = [] }: any) => {
+type Props = {
+  items: Item[]
+}
+
+const Home: React.FC<Props> = ({ items }) => {
   return (
     <div>
       <Head>

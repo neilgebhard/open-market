@@ -1,24 +1,21 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { HeartIcon } from '@heroicons/react/solid'
+import { Item } from '@prisma/client'
 
-type CardProps = {
-  id: string
-  image: string
-  name: string
-  price: number
+type Props = Item & {
   favorite: boolean
   onClickFavorite: (id: string) => void
 }
 
-const Card = ({
+const Card: React.FC<Props> = ({
   id = '',
   image = '',
   name = '',
   price = 0,
   favorite = false,
   onClickFavorite = () => null,
-}: CardProps) => (
+}) => (
   <Link href={`/items/${id}`}>
     <a className='block w-full'>
       <div className='relative'>

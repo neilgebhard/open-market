@@ -7,7 +7,31 @@ import nodemailer from 'nodemailer'
 import { readFileSync } from 'fs'
 import path from 'path'
 import prisma from '@/lib/prisma'
-import { User } from '@prisma/client'
+import { NextApiHandler } from 'next'
+
+const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options)
+export default authHandler
+
+const options = {
+  pages: {
+    signIn: '/',
+    signOut: '/',
+    error: '/',
+    verifyRequest: '/',
+  },
+  providers: [
+    EmailProvider({
+      maxAge: 10 * 60,
+      sendVerificationRequest,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID!,
+      clientSecret: process.env.GOOGLE_SECRET!,
+    }),
+  ],
+  events: { createUser: sendWelcomeEmail },
+  adapter: PrismaAdapter(prisma),
+}
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_SERVER_HOST,
@@ -21,13 +45,13 @@ const transporter = nodemailer.createTransport({
 
 const emailsDir = path.resolve(process.cwd(), 'emails')
 
-const sendVerificationRequest = ({
+function sendVerificationRequest({
   identifier,
   url,
 }: {
   identifier: string
   url: string
-}) => {
+}) {
   const emailFile = readFileSync(path.join(emailsDir, 'confirm-email.html'), {
     encoding: 'utf8',
   })
@@ -46,7 +70,7 @@ const sendVerificationRequest = ({
   })
 }
 
-const sendWelcomeEmail = (message: any) => {
+function sendWelcomeEmail(message: any) {
   const { email } = message.user
 
   const emailFile = readFileSync(path.join(emailsDir, 'welcome.html'), {
@@ -65,35 +89,3 @@ const sendWelcomeEmail = (message: any) => {
     }),
   })
 }
-
-export default NextAuth({
-  pages: {
-    signIn: '/',
-    signOut: '/',
-    error: '/',
-    verifyRequest: '/',
-  },
-  providers: [
-    EmailProvider({
-      maxAge: 10 * 60,
-      sendVerificationRequest,
-    }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID!,
-      clientSecret: process.env.GOOGLE_SECRET!,
-    }),
-  ],
-  callbacks: {
-    session: async ({ session, token }) => {
-      if (session?.user) {
-        session.user.id = token.sub!
-      }
-      return session
-    },
-  },
-  session: {
-    strategy: 'jwt',
-  },
-  events: { createUser: sendWelcomeEmail },
-  adapter: PrismaAdapter(prisma),
-})
