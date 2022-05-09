@@ -12,7 +12,7 @@ export default async function handler(
 
   if (req.method === 'GET') {
     const user = await prisma.user.findUnique({
-      where: { email: session.user?.email as string },
+      where: { email: session.user?.email! },
       select: { favoriteItems: true },
     })
     res.status(200).json(user?.favoriteItems?.map((f) => f.id))

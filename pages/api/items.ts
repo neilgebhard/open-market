@@ -1,7 +1,6 @@
 import { getSession } from 'next-auth/react'
 import prisma from '@/lib/prisma'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import type { Item } from '@prisma/client'
 
 // POST /api/items
 export default async function handler(

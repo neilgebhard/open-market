@@ -3,6 +3,7 @@ import { ExclamationIcon } from '@heroicons/react/outline'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Item } from '@prisma/client'
+import { useSession } from 'next-auth/react'
 
 type Props = {
   items: Item[]
@@ -10,8 +11,11 @@ type Props = {
 
 const Grid: React.FC<Props> = ({ items = [] }) => {
   const [favorites, setFavorites] = useState<string[]>([])
+  const { status } = useSession()
 
   const toggleFavorite = (id: string) => {
+    if (status !== 'authenticated') return
+
     setFavorites((prev) => {
       const isFavorited = prev.includes(id)
       if (isFavorited) {

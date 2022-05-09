@@ -31,7 +31,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const item = await prisma.item.findUnique({
-    where: { id: params?.id as string },
+    where: { id: params?.id },
   })
 
   if (item) {

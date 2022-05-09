@@ -121,7 +121,7 @@ const ListingForm: React.FC<Props> = ({
                 name='price'
                 type='number'
                 min='0'
-                label='Price of item'
+                label='Price of item ($)'
                 placeholder='1000'
                 disabled={disabled}
               />

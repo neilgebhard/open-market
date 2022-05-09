@@ -31,8 +31,8 @@ const ImageUpload: React.FC<Props> = ({
       'load',
       async function () {
         try {
-          setImage({ src: reader.result as string, alt: fileName })
-          await onChangePicture(reader.result as string)
+          setImage({ src: String(reader.result), alt: fileName })
+          await onChangePicture(String(reader.result))
         } catch (err) {
           toast.error('Unable to update image')
         } finally {
@@ -48,7 +48,7 @@ const ImageUpload: React.FC<Props> = ({
         setPictureError('')
         reader.readAsDataURL(file)
       } else {
-        setPictureError('File size is exceeding 10MB.')
+        setPictureError('File size is exceeding 1MB.')
       }
     }
   }
