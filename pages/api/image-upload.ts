@@ -46,8 +46,6 @@ export default async function handler(
         .from(process.env.SUPABASE_BUCKET!)
         .upload(path, decode(base64FileData), { contentType, upsert: true })
 
-      console.log(data, uploadError)
-
       if (uploadError) {
         throw new Error('Unable to upload image to storage.')
       }
@@ -58,13 +56,9 @@ export default async function handler(
         '.in'
       )}/storage/v1/object/public/${data?.Key}`
 
-      console.log(url)
-
       res.status(200).json({ url })
     } catch (e) {
-      res
-        .status(500)
-        .json({ message: 'Something went wrong with image upload.' })
+      res.status(500).json({ error: e })
     }
   } else {
     res

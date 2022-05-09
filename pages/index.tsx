@@ -8,7 +8,11 @@ import { Item } from '@prisma/client'
 import { GetServerSideProps } from 'next'
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await prisma.item.findMany()
+  const data = await prisma.item.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
+  })
   const items = JSON.parse(JSON.stringify(data))
   return {
     props: {

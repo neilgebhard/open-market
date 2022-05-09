@@ -20,7 +20,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const data = await prisma.user.findUnique({
     where: { email: session.user?.email! },
-    include: { favoriteItems: true },
+    include: {
+      favoriteItems: {
+        orderBy: { createdAt: 'desc' },
+      },
+    },
   })
 
   const { favoriteItems } = JSON.parse(JSON.stringify(data))
