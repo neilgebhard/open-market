@@ -7,18 +7,18 @@ import Input from '@/components/Input'
 import ImageUpload from '@/components/ImageUpload'
 import axios from 'axios'
 
-type FormValues = {
-  image?: string
+type Item = {
+  image: string | null
   name: string
   description: string
   price: number
 }
 
 type Props = {
-  initialValues?: FormValues
+  initialValues?: Item
   redirectPath: string
   buttonText: string
-  onSubmit: (values: FormValues) => void
+  onSubmit: (values: Item) => void
 }
 
 const ListingSchema = Yup.object().shape({
@@ -56,13 +56,13 @@ const ListingForm: React.FC<Props> = ({
     }
   }
 
-  const handleOnSubmit = async (values: FormValues) => {
+  const handleOnSubmit = async (values: Item) => {
     let toastId
     try {
       setDisabled(true)
       toastId = toast.loading('Submitting...')
 
-      await onSubmit({ ...values, image: imageUrl })
+      await onSubmit({ ...values, image: imageUrl! })
 
       toast.success('Successfully submitted', { id: toastId })
 
@@ -75,7 +75,7 @@ const ListingForm: React.FC<Props> = ({
     }
   }
 
-  const { image, ...initialFormValues } = initialValues ?? {
+  const initialFormValues = initialValues ?? {
     image: '',
     name: '',
     description: '',
@@ -86,7 +86,10 @@ const ListingForm: React.FC<Props> = ({
     <div>
       <div className='mb-8 max-w-md'>
         <ImageUpload
-          initialImage={{ src: image!, alt: initialFormValues.name }}
+          initialImage={{
+            src: initialFormValues.image!,
+            alt: initialFormValues.name,
+          }}
           onChangePicture={upload}
         />
       </div>
