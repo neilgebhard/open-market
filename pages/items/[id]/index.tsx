@@ -118,7 +118,13 @@ const ListedItem = (item: Item) => {
           )}
         </div>
 
-        <p className='mt-8 text-lg'>{item?.description}</p>
+        <p className='mt-8 text-2xl font-bold'>
+          {new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+          }).format(item?.price)}
+        </p>
+        <p className='mt-2 text-lg'>{item?.description}</p>
       </div>
     </Layout>
   )
