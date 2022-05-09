@@ -14,7 +14,7 @@ export default async function handler(
   if (req.method === 'PUT') {
     try {
       const item = await prisma.item.update({
-        where: { id: itemId },
+        where: { id: String(itemId) },
         data: {
           favoritedBy: { connect: { email: session?.user?.email! } },
         },
