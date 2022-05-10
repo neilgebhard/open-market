@@ -76,10 +76,13 @@ const Layout: React.FC<Props> = ({ children }) => {
                   List your item
                 </button>
                 {isLoadingUser ? (
-                  <div className='h-8 w-[57px] bg-gray-200 animate-pulse rounded-full' />
+                  <div className='flex items-center'>
+                    <div className='h-9 w-9 bg-gray-200 animate-pulse rounded-full' />
+                    <ChevronDownIcon className='w-5 h-5 shrink-0 text-gray-500 group-hover:text-current' />
+                  </div>
                 ) : user ? (
                   <Menu as='div' className='relative z-50'>
-                    <Menu.Button className='flex items-center space-x-px group'>
+                    <Menu.Button className='flex items-center group'>
                       <div className='shrink-0 flex items-center justify-center rounded-full overflow-hidden relative bg-gray-200 w-9 h-9'>
                         {user?.image ? (
                           <Image
