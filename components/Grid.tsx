@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { Item, User } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 
-type ItemWithFavorite = Item & { favoritedBy: User[] }
+type ItemWithFavorite = Item & { favoritedBy?: User[] }
 
 type Props = {
   items: ItemWithFavorite[]
