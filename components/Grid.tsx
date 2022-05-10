@@ -2,16 +2,18 @@ import Card from '@/components/Card'
 import { ExclamationIcon } from '@heroicons/react/outline'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Item } from '@prisma/client'
+import { Item, User } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 
+type ItemWithFavorite = Item & { favoritedBy: User[] }
+
 type Props = {
-  items: Item[]
+  items: ItemWithFavorite[]
 }
 
 const Grid: React.FC<Props> = ({ items = [] }) => {
   const [favorites, setFavorites] = useState<string[]>([])
-  const { status } = useSession()
+  const { data, status } = useSession()
 
   const toggleFavorite = (id: string) => {
     if (status !== 'authenticated') return
@@ -55,7 +57,7 @@ const Grid: React.FC<Props> = ({ items = [] }) => {
           key={item.id}
           {...item}
           onClickFavorite={toggleFavorite}
-          favorite={favorites.includes(item.id)}
+          favorite={!!item.favoritedBy.find((f) => f.id === data?.user?.id)}
         />
       ))}
     </div>

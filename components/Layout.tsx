@@ -76,7 +76,7 @@ const Layout: React.FC<Props> = ({ children }) => {
                   List your item
                 </button>
                 {isLoadingUser ? (
-                  <div className='h-8 w-[75px] bg-gray-200 animate-pulse rounded-md' />
+                  <div className='h-8 w-[57px] bg-gray-200 animate-pulse rounded-full' />
                 ) : user ? (
                   <Menu as='div' className='relative z-50'>
                     <Menu.Button className='flex items-center space-x-px group'>

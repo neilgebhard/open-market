@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { HeartIcon } from '@heroicons/react/solid'
 import { Item } from '@prisma/client'
 import { useSession } from 'next-auth/react'
+import { useState } from 'react'
+import classNames from 'classnames'
 
 type Props = Item & {
   favorite: boolean
@@ -18,6 +20,7 @@ const Card: React.FC<Props> = ({
   onClickFavorite = () => null,
 }) => {
   const { status } = useSession()
+  const [isLoading, setLoading] = useState(true)
   return (
     <Link href={`/items/${id}`}>
       <a className='block w-full'>
@@ -29,7 +32,13 @@ const Card: React.FC<Props> = ({
                 alt={name}
                 layout='fill'
                 objectFit='cover'
-                className='hover:opacity-80 transition rounded-lg'
+                className={classNames(
+                  'hover:opacity-80 transition rounded-lg group-hover:opacity-75 duration-700 ease-in-out',
+                  isLoading
+                    ? 'grayscale blur-2xl scale-110'
+                    : 'grayscale-0 blur-0 scale-100'
+                )}
+                onLoadingComplete={() => setLoading(false)}
               />
             )}
           </div>

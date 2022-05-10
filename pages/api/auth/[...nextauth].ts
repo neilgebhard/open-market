@@ -31,6 +31,12 @@ const options = {
   ],
   events: { createUser: sendWelcomeEmail },
   adapter: PrismaAdapter(prisma),
+  callbacks: {
+    async session({ session, token, user }) {
+      session.user.id = user.id
+      return session
+    },
+  },
 }
 
 const transporter = nodemailer.createTransport({

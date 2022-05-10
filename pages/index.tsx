@@ -1,4 +1,3 @@
-import type { NextPage } from 'next'
 import React from 'react'
 import Head from 'next/head'
 import Layout from '@/components/Layout'
@@ -9,6 +8,7 @@ import { GetServerSideProps } from 'next'
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const data = await prisma.item.findMany({
+    include: { favoritedBy: true },
     orderBy: {
       createdAt: 'desc',
     },
@@ -39,11 +39,9 @@ const Home: React.FC<Props> = ({ items }) => {
 
       <main>
         <Layout>
-          <h1 className='text-xl font-medium text-gray-800'>
-            Premium items at a discount
-          </h1>
+          <h1 className='text-xl font-medium text-gray-800'>Items for sale</h1>
           <p className='text-gray-500'>
-            Explore some of the best items available on the market
+            Explore what kind of stuff people are selling
           </p>
           <div className='mt-8'>
             <Grid items={items} />
