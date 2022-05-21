@@ -2,12 +2,13 @@ import { Fragment, useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import * as Yup from 'yup'
-import { toast, useToasterStore } from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 import { Formik, Form } from 'formik'
 import { Dialog, Transition } from '@headlessui/react'
-import { ThumbUpIcon, MailOpenIcon, XIcon } from '@heroicons/react/outline'
+import { MailOpenIcon, XIcon } from '@heroicons/react/outline'
 import Input from './Input'
 import { signIn } from 'next-auth/react'
+import { TagIcon } from '@heroicons/react/solid'
 
 type Props = {
   show: boolean
@@ -173,7 +174,7 @@ const AuthModal: React.FC<Props> = ({ show = false, onClose = () => null }) => {
                   <div className='flex justify-center'>
                     <Link href='/'>
                       <a className='flex items-center space-x-1'>
-                        <ThumbUpIcon className='shrink-0 w-8 h-8 text-amber-500' />
+                        <TagIcon className='shrink-0 w-8 h-8 text-amber-500' />
                         <span className='text-xl font-semibold tracking-wide'>
                           Open<span className='text-amber-500'>Market</span>
                         </span>
