@@ -121,6 +121,11 @@ const ListedItem = (item: Item) => {
                 </button>
               </div>
             )}
+            <div className='mt-6'>
+              <button className='px-4 py-1 rounded-md bg-amber-600 hover:bg-amber-500 focus:outline-none focus:ring-4 focus:ring-amber-500 focus:ring-opacity-50 text-white transition'>
+                Buy
+              </button>
+            </div>
           </div>
         </div>
       </div>
